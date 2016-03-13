@@ -1,0 +1,17 @@
+---
+driver:
+  name: vz
+
+provisioner:
+  name: dummy
+
+platforms:
+  - name: centos-6.6
+    driver:
+      socket: 'ssh://cookbook-ci.prls.net'
+      network:
+        Bridged:
+          dhcp: true
+
+suites:
+  - name: default
