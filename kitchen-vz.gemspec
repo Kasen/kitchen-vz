@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ['pyudin@parallels.com']
   spec.description   = 'A Virtuozzo driver for Test Kitchen'
   spec.summary       = spec.description
-  spec.homepage      = ''
+  spec.homepage      = 'https://github.com/Kasen/kitchen-vz'
   spec.license       = 'Apache 2.0'
 
   spec.files         = `git ls-files`.split($INPUT_RECORD_SEPARATOR)

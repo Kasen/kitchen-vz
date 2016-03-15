@@ -4,9 +4,9 @@ A Virtuozzo driver for Test Kitchen
 
 ## Requirements
 
-This driver tested only on Virtuozzo 7.
+This driver works via ssh or directly executes command. So you need to have ssh access via keys on the server, where container will be started. Also you need to have sudo permissions for your user to run `prlctl` and `vzctl` commands.
 
-## Installation and Setup
+This driver tested only on Virtuozzo 7.
 
 ## Installation and Setup
 
