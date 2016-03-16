@@ -75,7 +75,7 @@ module Kitchen
       def generate_keys
         if !File.exist?(config[:public_key]) || !File.exist?(config[:private_key])
           private_key = OpenSSL::PKey::RSA.new(2048)
-          blobbed_key = Base64.encode64(private_key.to_blob)
+          blobbed_key = Base64.encode64(private_key.to_blob).gsub("\n", '')
           public_key = "ssh-rsa #{blobbed_key} kitchen_key"
           File.open(config[:private_key], 'w') do |file|
             file.write(private_key)
