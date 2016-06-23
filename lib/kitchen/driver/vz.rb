@@ -143,7 +143,7 @@ module Kitchen
 
       def ct_ip(state)
         ip = nil
-        1..10.times do
+        1..30.times do
           output = execute_command("#{vzctl} exec #{state[:ct_id]} \"/sbin/ip -o -f inet addr show dev eth0\"")
           result = %r{(([0-9]{1,3}\.){3}[0-9]{1,3})\/[0-9]{1,2}}.match(output)
           ip = result[1] if result
