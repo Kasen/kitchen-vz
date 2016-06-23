@@ -136,6 +136,7 @@ module Kitchen
          "chown #{config[:username]}: /home/#{config[:username]}/.ssh/authorized_keys",
          "chmod 600 /home/#{config[:username]}/.ssh/authorized_keys",
          'mkdir -p /etc/sudoers.d',
+         "echo '#includedir /etc/sudoers.d' >> /etc/sudoers",
          "echo '#{config[:username]} ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers.d/#{config[:username]}",
          "chmod 0440 /etc/sudoers.d/#{config[:username]}"].each do |command|
            execute_command("#{prlctl} exec #{state[:ct_id]} \"#{command}\"")
