@@ -43,6 +43,7 @@ module Kitchen
       end
 
       def create(state)
+        return if state[:ct_id]
         state[:ct_id] = SecureRandom.uuid
         generate_keys
         state[:ssh_key] = config[:ssh_key] = config[:private_key]
