@@ -8,7 +8,9 @@ provisioner:
 platforms:
   - name: centos-6.6
     driver:
-      socket: 'ssh://cookbook-ci.prls.net'
+      socket: 'ssh://virtuozzo.your-domain.loc'
+      additional_options:
+        ["--features nfs:on", "--features nfsd:on"]
       network:
         Bridged:
           dhcp: true

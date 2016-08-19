@@ -40,6 +40,7 @@ Example `.kitchen.local.yml`:
 |:public_key|Path to public key. This key pair used by the kitchen to login into container.|.kitchen/kitchen_id_rsa.pub|
 |:ostemplate|Virtuozzo template which will be used for container creating.||
 |:use_sudo|It shows will sudo be used or not.|true|
+|:additional_options|Array with `prlctl set` options, which will be pass as is. Example: ["--features nfs:on"]|[]|
 |:ct_hostname|Container hostname.|It is formed from platform name and suite name.|
 
 ### Network configuration

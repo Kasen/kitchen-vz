@@ -23,12 +23,10 @@ require 'net/ssh'
 
 module Kitchen
   module Driver
-
     # Virtuozzo driver for Kitchen.
     #
     # @author Pavel Yudin <pyudin@parallels.com>
     class Vz < Kitchen::Driver::SSHBase
-
       default_config :socket, 'local'
       default_config :username, 'kitchen'
       default_config :private_key, File.join(Dir.pwd, '.kitchen', 'kitchen_id_rsa')
@@ -38,6 +36,7 @@ module Kitchen
       default_config :arch, 'x86_64'
       default_config :customize, memory: '512M', disk: '10G', cpus: 2
       default_config :ostemplate, nil
+      default_config :additional_options, []
       default_config :ct_hostname do |driver|
         driver.instance.name
       end
@@ -52,6 +51,7 @@ module Kitchen
         set_ct_cpu(state)
         set_ct_mem(state)
         set_ct_disk(state)
+        set_additional_options(state)
         run_ct(state)
         create_user(state)
         state[:hostname] = ct_ip(state)
@@ -76,7 +76,7 @@ module Kitchen
       def generate_keys
         if !File.exist?(config[:public_key]) || !File.exist?(config[:private_key])
           private_key = OpenSSL::PKey::RSA.new(2048)
-          blobbed_key = Base64.encode64(private_key.to_blob).gsub("\n", '')
+          blobbed_key = Base64.encode64(private_key.to_blob).delete("\n")
           public_key = "ssh-rsa #{blobbed_key} kitchen_key"
           File.open(config[:private_key], 'w') do |file|
             file.write(private_key)
@@ -123,6 +123,12 @@ module Kitchen
         execute_command("#{vzctl} set #{state[:ct_id]} --diskspace #{ds}:#{ds} --save")
       end
 
+      def set_additional_options(state)
+        unless config[:additional_options].empty?
+          execute_command("#{prlctl} set #{state[:ct_id]} #{config[:additional_options].join(' ')}")
+        end
+      end
+
       def run_ct(state)
         execute_command("#{prlctl} start #{state[:ct_id]}")
       end
@@ -145,14 +151,14 @@ module Kitchen
 
       def ct_ip(state)
         ip = nil
-        1..30.times do
+        30.times do
           output = execute_command("#{vzctl} exec #{state[:ct_id]} \"/sbin/ip -o -f inet addr show dev eth0\"")
           result = %r{(([0-9]{1,3}\.){3}[0-9]{1,3})\/[0-9]{1,2}}.match(output)
           ip = result[1] if result
           break if ip
           sleep(1)
         end
-        raise "Can't detect an IP!" if !ip
+        raise "Can't detect an IP!" unless ip
         ip
       end
 
