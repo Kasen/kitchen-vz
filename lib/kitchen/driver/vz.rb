@@ -135,7 +135,9 @@ module Kitchen
 
       def create_user(state)
         ["useradd #{config[:username]}",
-         "mkdir /home/#{config[:username]}/.ssh",
+         "mkdir -p /home/#{config[:username]}/.ssh",
+         "chown #{config[:username]}: /home/#{config[:username]}",
+         "chmod 700 /home/#{config[:username]}",
          "chown #{config[:username]}: /home/#{config[:username]}/.ssh",
          "chmod 700 /home/#{config[:username]}/.ssh",
          "echo '#{File.open(config[:public_key]).read}' > /home/#{config[:username]}/.ssh/authorized_keys",
