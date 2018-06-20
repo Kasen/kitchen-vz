@@ -1,3 +1,7 @@
+## 0.1.4
+
+* Add 'use_agent_forwarding' option. This option allows to use host ssh-agent to forward keys into container.
+
 ## 0.1.3
 
 * Add `additional_options` option. This option allows to set additional options for container, such as features.

@@ -19,6 +19,6 @@
 module Kitchen
   module Driver
     # Version string for Vz Kitchen driver
-    VZ_VERSION = '0.1.3'.freeze
+    VZ_VERSION = '0.1.4'.freeze
   end
 end

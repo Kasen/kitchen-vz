@@ -38,6 +38,7 @@ Example `.kitchen.local.yml`:
 |:customize|Hash with container settings. It may contain :memory, :disk and :cpus options.|memory: '512M', disk: '10G', cpus: 2|
 |:private_key|Path to private key. This key pair used by the kitchen to login into container.|.kitchen/kitchen_id_rsa|
 |:public_key|Path to public key. This key pair used by the kitchen to login into container.|.kitchen/kitchen_id_rsa.pub|
+|:use_agent_forwarding| Set agent forwarding option into container.|'False'|
 |:ostemplate|Virtuozzo template which will be used for container creating.||
 |:use_sudo|It shows will sudo be used or not.|true|
 |:additional_options|Array with `prlctl set` options, which will be pass as is. Example: ["--features nfs:on"]|[]|

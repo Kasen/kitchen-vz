@@ -31,6 +31,7 @@ module Kitchen
       default_config :username, 'kitchen'
       default_config :private_key, File.join(Dir.pwd, '.kitchen', 'kitchen_id_rsa')
       default_config :public_key, File.join(Dir.pwd, '.kitchen', 'kitchen_id_rsa.pub')
+      default_config :use_agent_forwarding, false
       default_config :network, 'Bridged' => { dhcp: true }
       default_config :use_sudo, true
       default_config :arch, 'x86_64'
@@ -208,7 +209,7 @@ module Kitchen
       end
 
       def ssh_connection
-        @connection ||= Net::SSH.start(uri.host, uri.user, port: uri.port)
+        @connection ||= Net::SSH.start(uri.host, uri.user, port: uri.port, forward_agent: config[:use_agent_forwarding])
       end
     end
   end
