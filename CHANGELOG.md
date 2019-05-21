@@ -1,3 +1,7 @@
+## 0.1.5
+
+* Moving net-ssh constraint to ~> 4.0
+
 ## 0.1.4
 
 * Add 'use_agent_forwarding' option. This option allows to use host ssh-agent to forward keys into container.
